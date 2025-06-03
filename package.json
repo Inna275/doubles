@@ -2,7 +2,7 @@
   "name": "doubles",
   "version": "1.0.0",
   "description": "Merge, double, and win. A tile game inspired by 2048.",
-  "main": "main.js",
+  "main": "src/main/entry.js",
   "scripts": {
     "test": "jest"
   },
