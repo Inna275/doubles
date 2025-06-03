@@ -1,0 +1,26 @@
+body {
+  background-color: #202020;
+}
+
+#game-board {
+  width: 500px;
+  height: 500px;
+  margin: 100px auto;
+}
+
+#grid {
+  display: grid;
+  width: 100%; 
+  height: 100%;
+  --size: 4;
+  grid-template-columns: repeat(var(--size), 1fr);
+  grid-template-rows: repeat(var(--size), 1fr);
+}
+
+.cell {
+  width: 90%;
+  height: 90%;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: #848484;
+}
