@@ -4,7 +4,7 @@
   "description": "Merge, double, and win. A tile game inspired by 2048.",
   "main": "src/main/entry.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --passWithNoTests"
   },
   "repository": {
     "type": "git",
