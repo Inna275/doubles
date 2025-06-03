@@ -1,4 +1,5 @@
 import { Cell } from './cell.js';
+import { START_TILES } from '../constants.js';
 
 class Grid {
   constructor(size) {
@@ -17,6 +18,7 @@ class Grid {
   setupGrid() {
     this.fillWithCells();
     this.addToPage();
+    this.addStartTiles();
   }
 
   fillWithCells() {
@@ -41,6 +43,37 @@ class Grid {
   addToPage() {
     const gameBoard = document.getElementById('game-board');
     gameBoard.appendChild(this.element);
+  }
+
+  addTile() {
+    const emptyCells = this.findEmptyCells();
+    const randomCell = this.getRandomCell(emptyCells);
+    randomCell.placeTile();
+  }
+
+  findEmptyCells() {
+    const emptyCells = [];
+    for (let row = 0; row < this.size; row++) {
+      for (let col = 0; col < this.size; col++) {
+        const cell = this.cells[row][col];
+        if (cell.isEmpty()) {
+          emptyCells.push(cell);
+        }
+      }
+    }
+
+    return emptyCells;
+  }
+
+  getRandomCell(cells) {
+    const randomIndex = Math.floor(Math.random() * cells.length);
+    return cells[randomIndex];
+  }
+
+  addStartTiles() {
+    for (let i = 0; i < START_TILES; i++) {
+      this.addTile();
+    }
   }
 }
 

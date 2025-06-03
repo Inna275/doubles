@@ -38,4 +38,35 @@ describe('Grid', () => {
     const cells = grid.element.querySelectorAll('.cell');
     expect(cells.length).toBe(SIZE * SIZE);
   });
+
+  test('start tiles have valid values (2 or 4)', () => {
+    const validValues = [2, 4];
+
+    for (let row = 0; row < grid.size; row++) {
+      for (let col = 0; col < grid.size; col++) {
+        const cell = grid.cells[row][col];
+        if (!cell.isEmpty()) {
+          const tileValue = cell.tile.value;
+          expect(validValues).toContain(tileValue);
+        }
+      }
+    }
+  });
+
+  test('finds all empty cells after init (2 tiles placed)', () => {
+    const emptyCells = grid.findEmptyCells();
+    expect(emptyCells.length).toBe(SIZE * SIZE - 2);
+  });
+
+  test('finds all empty cells in cleared grid', () => {
+    grid.cells.flat().forEach(cell => cell.tile = null);
+    const emptyCells = grid.findEmptyCells();
+    expect(emptyCells.length).toBe(SIZE * SIZE);
+  });
+
+  test('getRandomCell returns a cell from the list', () => {
+    const emptyCells = grid.findEmptyCells();
+    const randomCell = grid.getRandomCell(emptyCells);
+    expect(emptyCells).toContain(randomCell);
+  });
 });
