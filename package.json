@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "Merge, double, and win. A tile game inspired by 2048.",
   "main": "src/main/entry.js",
+  "type": "module",
   "scripts": {
-    "test": "jest --passWithNoTests"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/Inna275/doubles#readme",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^30.0.0-beta.3"
   }
 }
