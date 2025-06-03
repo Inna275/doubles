@@ -1,3 +1,4 @@
 import { Grid } from '../core/grid.js';
+import { GRID_SIZE } from '../constants.js';
 
-const grid = new Grid(4);
+const grid = new Grid(GRID_SIZE);
