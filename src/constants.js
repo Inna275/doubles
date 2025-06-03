@@ -4,6 +4,8 @@ const TWO_CHANCE = 0.9;
 
 const START_TILES = 2;
 
+const ANIMATION_DELAY = 100;
+
 const TILE_COLORS = {
    2: '#f91e52',
    4: '#fe8b4b',
@@ -22,5 +24,6 @@ export {
    GRID_SIZE,
    TWO_CHANCE,
    START_TILES,
-   TILE_COLORS
+   TILE_COLORS,
+   ANIMATION_DELAY
 };
