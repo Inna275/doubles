@@ -22,9 +22,13 @@ class Grid {
   fillWithCells() {
     for (let row = 0; row < this.size; row++) {
       this.cells[row] = [];
-      for (let col = 0; col < this.size; col++) {
-        this.placeCell(row, col);
-      }
+      this.fillRow(row);
+    }
+  }
+
+  fillRow(row) {
+    for (let col = 0; col < this.size; col++) {
+      this.placeCell(row, col);
     }
   }
 
