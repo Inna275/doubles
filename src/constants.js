@@ -10,18 +10,20 @@ const LAST_INDEX = GRID_SIZE - 1;
 
 const FIRST_INDEX = 0;
 
+const END_GAME_DELAY = 300;
+
 const TILE_COLORS = {
-   2: '#f91e52',
-   4: '#fe8b4b',
-   8: '#f7df25',
-   16: '#98ec29',
-   32: '#43e24b',
-   64: '#24d39b',
-   128: '#2dc2cc',
-   256: '#3daaeb',
-   512: '#5a84fb',
-   1024: '#9037f9',
-   2048: '#a024f5',
+  2: '#f91e52',
+  4: '#fe8b4b',
+  8: '#f7df25',
+  16: '#98ec29',
+  32: '#43e24b',
+  64: '#24d39b',
+  128: '#2dc2cc',
+  256: '#3daaeb',
+  512: '#5a84fb',
+  1024: '#9037f9',
+  2048: '#a024f5',
 };
 
 const KEY_TO_DIRECTION = {
@@ -65,13 +67,21 @@ const MOVE_DATA = {
   },
 };
 
-export { GRID_SIZE, 
-         TWO_CHANCE, 
-         START_TILES,
-         ANIMATION_DELAY, 
-         LAST_INDEX, 
-         FIRST_INDEX,
-         TILE_COLORS,
-         KEY_TO_DIRECTION,
-         MOVE_DATA,
-      };
+const MESSAGES = {
+  YOU_WIN: 'Congratulations! You win!',
+  GAME_OVER: 'Game over. Try again!',
+};
+
+export {
+  GRID_SIZE,
+  TWO_CHANCE,
+  START_TILES,
+  ANIMATION_DELAY,
+  LAST_INDEX,
+  FIRST_INDEX,
+  TILE_COLORS,
+  KEY_TO_DIRECTION,
+  MOVE_DATA,
+  END_GAME_DELAY,
+  MESSAGES
+};

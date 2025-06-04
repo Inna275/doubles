@@ -8,6 +8,7 @@ class Grid {
     this.element = this.createGridElement();
     this.setupGrid();
     this.moved = false;
+    this.reached2048 = false;
   }
 
   createGridElement() {
@@ -90,6 +91,7 @@ class Grid {
     const targetTile = targetCell.tile;
     targetTile.doubleValue();
     targetTile.updateElement();
+    this.checkReached2048(targetTile.value);
     targetTile.markAsMerged();
     targetCell.animateMerge();
     cell.clear();
@@ -116,7 +118,7 @@ class Grid {
 
   move(direction) {
     const { start, end, step, isVertical, isForward } = MOVE_DATA[direction];
-   
+
     for (let i = start; i !== end; i += step) {
       for (let j = 0; j < this.size; j++) {
         const cell = isVertical ? this.cells[i][j] : this.cells[j][i];
@@ -125,7 +127,7 @@ class Grid {
         }
       }
     }
-  } 
+  }
 
   processTile(i, j, isVertical, isForward) {
     let currentPos = i;
@@ -142,7 +144,7 @@ class Grid {
       const currentTile = getCell(pos).tile;
       const nextTile = getCell(pos + next).tile;
       return this.isMergePossible(currentTile, nextTile) &&
-             !nextTile.merged;
+        !nextTile.merged;
     };
 
     while (canSlide(currentPos)) {
@@ -155,6 +157,52 @@ class Grid {
       this.mergeTiles(getCell(currentPos), getCell(currentPos + next));
       this.markAsMoved()
     }
+  }
+
+  checkReached2048(value) {
+    if (value === 2048) this.reached2048 = true;
+  }
+
+  canMove() {
+    for (let row = 0; row < this.size; row++) {
+      for (let col = 0; col < this.size; col++) {
+        const currentCell = this.cells[row][col];
+
+        if (currentCell.isEmpty()) return true;
+
+        if (this.canMergeRight(row, col, currentCell) ||
+          this.canMergeDown(row, col, currentCell)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  canMergeRight(row, col, currentCell) {
+    if (col < LAST_INDEX) {
+      const rightCell = this.cells[row][col + 1];
+      return rightCell.tile && this.isMergePossible(currentCell.tile, rightCell.tile);
+    }
+    return false;
+  }
+
+  canMergeDown(row, col, currentCell) {
+    if (row < LAST_INDEX) {
+      const downCell = this.cells[row + 1][col];
+      return downCell.tile && this.isMergePossible(currentCell.tile, downCell.tile);
+    }
+    return false;
+  }
+
+  resetReached2048() {
+    this.reached2048 = false;
+  }
+
+  clear() {
+    this.element.innerHTML = '';
+    this.cells = [];
   }
 }
 

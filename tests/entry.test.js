@@ -1,6 +1,8 @@
 import { jest } from '@jest/globals';
 import { Grid } from '../src/core/grid.js';
 import { GRID_SIZE, KEY_TO_DIRECTION } from '../src/constants.js';
+import { checkGameStatus } from '../src/gameflow/flow.js';
+
 
 describe('Entry', () => {
   let grid;
@@ -16,6 +18,7 @@ describe('Entry', () => {
       grid.addTile();
       grid.resetMergedFlags();
       grid.resetMoved();
+      checkGameStatus(grid);
     }
   };
 
@@ -48,7 +51,7 @@ describe('Entry', () => {
   });
 
   test('does not call tile methods if not moved', () => {
-    grid.move.mockImplementation(() => {});
+    grid.move.mockImplementation(() => { });
 
     const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
     document.dispatchEvent(event);
@@ -56,5 +59,26 @@ describe('Entry', () => {
     expect(grid.addTile).not.toHaveBeenCalled();
     expect(grid.resetMergedFlags).not.toHaveBeenCalled();
     expect(grid.resetMoved).not.toHaveBeenCalled();
+  });
+
+  test('calls checkGameStatus after key press', () => {
+    const originalCheck = window.checkGameStatus;
+
+    let called = false;
+    window.checkGameStatus = () => { called = true; };
+
+
+    const event = new KeyboardEvent('keydown', { key: 'ArrowUp' });
+    document.dispatchEvent(event);
+
+    window.checkGameStatus = originalCheck;
+  });
+
+  test('ignores irrelevant key presses', () => {
+    let tileAdded = false;
+    grid.addTile = () => { tileAdded = true; };
+
+    const event = new KeyboardEvent('keydown', { key: 'a' });
+    document.dispatchEvent(event);
   });
 });
