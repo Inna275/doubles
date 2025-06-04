@@ -230,4 +230,76 @@ describe('Grid', () => {
     expect(grid.cells[0][0].tile).toBe(null);
     expect(grid.moved).toBe(true);
   });
+
+  test('checkReached2048 sets reached2048 to true when 2048 is passed', () => {
+    grid.reached2048 = false;
+    grid.checkReached2048(2048);
+    expect(grid.reached2048).toBe(true);
+  });
+
+  test('checkReached2048 does not set reached2048 when value is less than 2048', () => {
+    grid.reached2048 = false;
+    grid.checkReached2048(1024);
+    expect(grid.reached2048).toBe(false);
+  });
+
+  test('resetReached2048 sets reached2048 to false', () => {
+    grid.reached2048 = true;
+    grid.resetReached2048();
+    expect(grid.reached2048).toBe(false);
+  });
+
+  test('canMove returns true if any cell is empty', () => {
+    grid.cells[0][0].tile = null;
+    expect(grid.canMove()).toBe(true);
+  });
+
+  test('canMove returns true if any horizontal merge is possible', () => {
+    const t1 = new Tile(); t1.value = 4;
+    const t2 = new Tile(); t2.value = 4;
+
+    grid.cells[0][0].placeTile(t1);
+    grid.cells[0][1].placeTile(t2);
+
+    expect(grid.canMove()).toBe(true);
+  });
+
+  test('canMove returns true if any vertical merge is possible', () => {
+    const t1 = new Tile(); t1.value = 2;
+    const t2 = new Tile(); t2.value = 2;
+
+    grid.cells[0][0].placeTile(t1);
+    grid.cells[1][0].placeTile(t2);
+
+    expect(grid.canMove()).toBe(true);
+  });
+
+  test('canMove returns false if no move or merge is possible', () => {
+    const values = [
+      [2, 4, 2, 4],
+      [4, 2, 4, 2],
+      [2, 4, 2, 4],
+      [4, 2, 4, 2],
+    ];
+
+    values.forEach((rowVals, rowIdx) => {
+      rowVals.forEach((val, colIdx) => {
+        const tile = new Tile();
+        tile.value = val;
+        grid.cells[rowIdx][colIdx].placeTile(tile);
+      });
+    });
+
+    expect(grid.canMove()).toBe(false);
+  });
+
+  test('clear resets grid element and cells array', () => {
+    grid.element.innerHTML = '<div>temp</div>';
+    grid.cells = [[{}, {}], [{}, {}]];
+
+    grid.clear();
+
+    expect(grid.element.innerHTML).toBe('');
+    expect(grid.cells).toEqual([]);
+  });
 });
