@@ -84,6 +84,7 @@ class Grid {
   }
 
   isMergePossible(currentTile, targetTile) {
+    if (!currentTile || !targetTile) return false;
     return targetTile.value === currentTile.value;
   }
 
@@ -172,7 +173,7 @@ class Grid {
 
         const canMergeRight = this.canMergeRight(row, col, currentCell);
         const canMergeDown = this.canMergeDown(row, col, currentCell);
-        
+
         if (canMergeRight || canMergeDown) return true;
       }
     }
