@@ -35,4 +35,33 @@ describe('Tile', () => {
 
       global.setTimeout = originalSetTimeout;
    });
+
+   test('doubleValue doubles the tile value', () => {
+      const tile = new Tile();
+      const originalValue = tile.value;
+      tile.doubleValue();
+      expect(tile.value).toBe(originalValue * 2);
+   });
+
+   test('updateElement updates text content and background color', () => {
+      const tile = new Tile();
+      tile.value = 8;
+      tile.updateElement();
+
+      expect(tile.element.textContent).toBe('8');
+      expect(tile.element.style.backgroundColor).toBe(hexToRgb(TILE_COLORS[tile.value]));
+   });
+
+   test('markAsMerged sets merged to true', () => {
+      const tile = new Tile();
+      tile.markAsMerged();
+      expect(tile.merged).toBe(true);
+   });
+
+   test('resetMerged sets merged to false', () => {
+      const tile = new Tile();
+      tile.markAsMerged();
+      tile.resetMerged();
+      expect(tile.merged).toBe(false);
+   });
 });

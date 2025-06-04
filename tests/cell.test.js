@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { Cell } from '../src/core/cell.js';
 import { Tile } from '../src/core/tile.js';
 
@@ -26,5 +27,28 @@ describe('Cell', () => {
     const cell = new Cell();
     cell.placeTile(new Tile());
     expect(cell.isEmpty()).toBe(false);
+  });
+
+  test('clear removes tile and empties innerHTML', () => {
+    const cell = new Cell();
+    const tile = new Tile();
+    cell.placeTile(tile);
+    cell.clear();
+
+    expect(cell.tile).toBe(null);
+    expect(cell.element.innerHTML).toBe('');
+  });
+
+  test('animateMerge adds and removes "tile-merge" class', () => {
+    const cell = new Cell();
+    jest.useFakeTimers();
+
+    cell.animateMerge();
+    expect(cell.element.classList.contains('tile-merge')).toBe(true);
+
+    jest.advanceTimersByTime(100);
+    expect(cell.element.classList.contains('tile-merge')).toBe(false);
+
+    jest.useRealTimers();
   });
 });
