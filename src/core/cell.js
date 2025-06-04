@@ -1,4 +1,5 @@
 import { Tile } from './tile.js';
+import { ANIMATION_DELAY } from '../constants.js';
 
 class Cell {
   constructor() {
@@ -30,7 +31,7 @@ class Cell {
     this.element.classList.add('tile-merge');
     setTimeout(() => {
       this.element.classList.remove('tile-merge');
-    }, 100);
+    }, ANIMATION_DELAY);
   }
 }
 
