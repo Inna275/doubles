@@ -170,10 +170,10 @@ class Grid {
 
         if (currentCell.isEmpty()) return true;
 
-        if (this.canMergeRight(row, col, currentCell) ||
-          this.canMergeDown(row, col, currentCell)) {
-          return true;
-        }
+        const canMergeRight = this.canMergeRight(row, col, currentCell);
+        const canMergeDown = this.canMergeDown(row, col, currentCell);
+        
+        if (canMergeRight || canMergeDown) return true;
       }
     }
 
