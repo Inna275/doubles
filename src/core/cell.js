@@ -1,4 +1,5 @@
 import { Tile } from './tile.js';
+import { ANIMATION_DELAY } from '../constants.js';
 
 class Cell {
   constructor() {
@@ -19,6 +20,18 @@ class Cell {
 
   isEmpty() {
     return this.tile === null;
+  }
+
+  clear() {
+    this.tile = null;
+    this.element.innerHTML = '';
+  }
+
+  animateMerge() {
+    this.element.classList.add('tile-merge');
+    setTimeout(() => {
+      this.element.classList.remove('tile-merge');
+    }, ANIMATION_DELAY);
   }
 }
 
